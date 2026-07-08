@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from agents import Agent, Runner, function_tool, tool, trace
 import asyncio
+import math
 
 def load_environment():
     load_dotenv (override=True)
@@ -23,7 +24,7 @@ async def run_agent(agent, prompt):
     return response.final_output if response else ''
 
 @function_tool
-def calculator_tool(num1: int, num2: int, operator: str):
+def calculator_tool(num1: float, num2: float, operator: str):
     """
     Use this tool for any basic mathematical operations - addition, subtraction, division, multiplication
     """
@@ -38,7 +39,7 @@ def calculator_tool(num1: int, num2: int, operator: str):
     elif operator == '*':
         result = num1 * num2
     elif operator == '/':
-        result = num1 / num2 if num2 != 0 else 'NaN'
+        result = num1 / num2 if num2 != 0 else math.nan
     else:
         return None
 
